@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWD.API", "SWD.API\SWD.API.csproj", "{F6EC310A-13C8-4E35-A646-DDCF8811996C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SWD.API", "SWD.API\SWD.API.csproj", "{F6EC310A-13C8-4E35-A646-DDCF8811996C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWD.Domain", "SWD.Domain\SWD.Domain.csproj", "{2070F5BC-9251-41E6-A339-10B41BB4E093}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SWD.Domain", "SWD.Domain\SWD.Domain.csproj", "{2070F5BC-9251-41E6-A339-10B41BB4E093}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWD.Utils.Docx", "SWD.Utils.Docx\SWD.Utils.Docx.csproj", "{EA7D60F3-0DA6-48AE-B46F-F8CA68B8D2E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2070F5BC-9251-41E6-A339-10B41BB4E093}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2070F5BC-9251-41E6-A339-10B41BB4E093}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2070F5BC-9251-41E6-A339-10B41BB4E093}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA7D60F3-0DA6-48AE-B46F-F8CA68B8D2E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA7D60F3-0DA6-48AE-B46F-F8CA68B8D2E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA7D60F3-0DA6-48AE-B46F-F8CA68B8D2E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA7D60F3-0DA6-48AE-B46F-F8CA68B8D2E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

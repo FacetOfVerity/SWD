@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net.Mime;
+using Microsoft.AspNetCore.Mvc;
 using SWD.Domain;
 using SWD.Domain.Models;
 
@@ -7,11 +8,12 @@ namespace SWD.API.Controllers
     [Route("Documents")]
     public class DocumentsController : Controller
     {
-        private readonly SwaggerSchemeProcessor _processor;
+        private readonly SwaggerDocumentationService _documentationService;
 
-        public DocumentsController(SwaggerSchemeProcessor processor)
+
+        public DocumentsController(SwaggerDocumentationService documentationService)
         {
-            _processor = processor;
+            _documentationService = documentationService;
         }
 
         /// <summary>
@@ -19,9 +21,11 @@ namespace SWD.API.Controllers
         /// </summary>
         /// <param name="jsonScheme">Схема</param>
         [HttpPut]
-        public SwaggerApiModel GetDocument([FromBody] object jsonScheme)
+        public FileStreamResult GetDocument([FromBody] object jsonScheme)
         {
-            return _processor.GetSchemeModel(jsonScheme);
+            var result = _documentationService.GenerateDocumentationFile(jsonScheme);
+
+            return File(result.Stream, MediaTypeNames.Application.Octet, result.FileName);
         }
     }
 }

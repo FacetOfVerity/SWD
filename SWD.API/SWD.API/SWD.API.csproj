@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Content Include="Resources\**\*" CopyToOutputDirectory="Always"></Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SWD.Domain\SWD.Domain.csproj" />
+    <ProjectReference Include="..\SWD.Utils.Docx\SWD.Utils.Docx.csproj" />
   </ItemGroup>
 
 </Project>
