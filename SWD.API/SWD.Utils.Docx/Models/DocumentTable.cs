@@ -14,9 +14,19 @@ namespace SWD.Utils.Docx.Models
         public string TableKey { get; set; }
 
         /// <summary>
+        /// Заголовок таблицы
+        /// </summary>
+        public string TableHeader { get; set; }
+
+        /// <summary>
         /// Строки таблицы
         /// </summary>
         public List<TRow> Rows { get; set; }
+
+        public DocumentTable()
+        {
+            
+        }
 
         /// <summary/>
         public DocumentTable(string tableKey, List<TRow> rows)

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SWD.Utils.Docx.Attributes;
 
 namespace SWD.Domain.Models
 {
@@ -10,6 +11,7 @@ namespace SWD.Domain.Models
 
         public string Description { get; set; }
 
+        [TemplateIgnore]
         public List<SwaggerProperty> Properties { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using SWD.Utils.Docx.Attributes;
 
 namespace SWD.Domain.Models
 {
@@ -16,6 +17,7 @@ namespace SWD.Domain.Models
 
         public bool Required { get; set; }
 
+        [TemplateIgnore]
         public IDictionary<string, ModelProperty> Model { get; set; }
     }
 }

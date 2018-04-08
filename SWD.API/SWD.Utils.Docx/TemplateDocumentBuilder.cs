@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using SWD.Utils.Docx.Attributes;
 using SWD.Utils.Docx.Extensions;
 using SWD.Utils.Docx.Models;
 using TemplateEngine.Docx;
@@ -60,21 +61,45 @@ namespace SWD.Utils.Docx
         /// <param name="table">Модель табличных данных</param>
         public ITemplateDocumentBuilder FillTableContent<TRow>(DocumentTable<TRow> table) where TRow : class
         {
-            var tableContent = new TableContent(table.TableKey);
-            var members = GetModelMembers(typeof(TRow));
+            var tableContent = ConstructTableContent(table);
+            _documentContent.Tables.Add(tableContent);
 
-            foreach (var row in table.Rows)
+            return this;
+        }
+
+        ///<inheritdoc cref="ITemplateDocumentBuilder.FillListContent{TListItem}"/>
+        public ITemplateDocumentBuilder FillListContent<TListItem>(DocumentList<TListItem> list) where TListItem : class
+        {
+            var listContent = new ListContent(list.ListKey);
+            var members = GetModelMembers(typeof(TListItem));
+
+            foreach (var row in list.ListItems)
             {
-                var rowItems = new List<IContentItem>();
+                var listItems = new List<IContentItem>();
                 foreach (var member in members)
                 {
                     var value = member.GetValue<string>(row);
                     if (value != null)
-                        rowItems.Add(new FieldContent(member.Name, value));
+                        listItems.Add(new FieldContent(member.Name, value));
                 }
-                tableContent.AddRow(rowItems.ToArray());
+                listContent.AddItem(listItems.ToArray());
             }
-            _documentContent.Tables.Add(tableContent);
+
+            _documentContent.Lists.Add(listContent);
+
+            return this;
+        }
+
+        ///<inheritdoc cref="ITemplateDocumentBuilder.FillTabelsContent{TRow}"/>
+        public ITemplateDocumentBuilder FillTabelsContent<TRow>(DocumentList<DocumentTable<TRow>> tabels)
+            where TRow : class
+        {
+            var listContent = new ListContent(tabels.ListKey);
+            foreach (var table in tabels.ListItems)
+            {
+                var tableContent = ConstructTableContent(table);
+                listContent.AddItem(new ListItemContent(table.TableKey, table.TableHeader).AddTable(tableContent));
+            }
 
             return this;
         }
@@ -112,6 +137,26 @@ namespace SWD.Utils.Docx
             _templateStream.Close();
         }
 
+        private TableContent ConstructTableContent<TRow>(DocumentTable<TRow> table) where TRow : class
+        {
+            var tableContent = new TableContent(table.TableKey);
+            var members = GetModelMembers(typeof(TRow));
+
+            foreach (var row in table.Rows)
+            {
+                var rowItems = new List<IContentItem>();
+                foreach (var member in members)
+                {
+                    var value = member.GetValue<string>(row);
+                    if (value != null)
+                        rowItems.Add(new FieldContent(member.Name, value));
+                }
+                tableContent.AddRow(rowItems.ToArray());
+            }
+
+            return tableContent;
+        }
+
         /// <summary>
         /// Получение свойств и статических полей типа
         /// </summary>
@@ -120,6 +165,7 @@ namespace SWD.Utils.Docx
         {
             var members = type.GetMembers(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
                 .Where(member => member.MemberType == MemberTypes.Property || member.MemberType == MemberTypes.Field)
+                .Where(a => a.GetCustomAttribute<TemplateIgnoreAttribute>() == null)
                 .ToArray();
 
             return members;
