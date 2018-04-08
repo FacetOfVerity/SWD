@@ -35,7 +35,7 @@ namespace SWD.Domain
 
                                 var schema = prop.SelectToken("schema", false);
 
-                                var @ref = schema?.SelectToken("$ref");
+                                var @ref = schema?.SelectToken("$ref", false);
                                 if (@ref != null)
                                 {
                                     var strRef = @ref.ToObject<string>();
@@ -60,7 +60,7 @@ namespace SWD.Domain
 
             return new SwaggerApiModel
             {
-                Title = jObject["info"]["title"].Value<string>(),
+                Title = jObject.SelectToken("info", false)?.SelectToken("title")?.Value<string>(),
                 Definitions = actions
             };
         }
