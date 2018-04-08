@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace SWD.Domain.Models
 {
@@ -10,10 +10,12 @@ namespace SWD.Domain.Models
         [JsonProperty("in")]
         public string Source { get; set; }
 
-        public string Format { get; set; }
+        public string Type { get; set; }
 
         public string Description { get; set; }
 
         public bool Required { get; set; }
+
+        public IDictionary<string, ModelProperty> Model { get; set; }
     }
 }
