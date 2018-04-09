@@ -20,14 +20,12 @@ namespace SWD.Domain.DocumentBuilder
             var builder = _builderProvider.GetBuilder("template");
             var textFields = new TextFieldsModel
             {
-                CreationDate = DateTime.Now.ToString("dd.MM.yyyy hh:mm"),
+                CreationDate = DateTime.Now.ToString("dd.MM.yyyy HH:mm"),
                 Title = model.Title
             };
 
             builder.FillTextContent(textFields);
 
-            //var table = new DocumentTable<ActionDefinition>("", model.Definitions);
-            //builder.FillTableContent()
             var list = new DocumentList<DocumentTable<SwaggerProperty>>
             {
                 ListKey = "Actions",

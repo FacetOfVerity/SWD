@@ -98,8 +98,10 @@ namespace SWD.Utils.Docx
             foreach (var table in tabels.ListItems)
             {
                 var tableContent = ConstructTableContent(table);
-                listContent.AddItem(new ListItemContent(table.TableKey, table.TableHeader).AddTable(tableContent));
+                listContent.AddItem(new ListItemContent("TableHeader", table.TableHeader).AddTable(tableContent));
             }
+
+            _documentContent.Lists.Add(listContent);
 
             return this;
         }
