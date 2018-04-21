@@ -13,5 +13,8 @@ namespace SWD.Domain.Models
 
         [TemplateIgnore]
         public List<ActionParameter> Properties { get; set; }
+
+        [TemplateIgnore]
+        public ModelProperty Response { get; set; }
     }
 }
