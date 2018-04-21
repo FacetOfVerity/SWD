@@ -12,6 +12,6 @@ namespace SWD.Domain.Models
         public string Description { get; set; }
 
         [TemplateIgnore]
-        public List<SwaggerProperty> Properties { get; set; }
+        public List<ActionParameter> Properties { get; set; }
     }
 }

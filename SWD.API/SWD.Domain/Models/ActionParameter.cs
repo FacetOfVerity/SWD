@@ -4,7 +4,7 @@ using SWD.Utils.Docx.Attributes;
 
 namespace SWD.Domain.Models
 {
-    public class SwaggerProperty
+    public class ActionParameter
     {
         public string Name { get; set; }
 
@@ -18,6 +18,7 @@ namespace SWD.Domain.Models
         public bool Required { get; set; }
 
         [TemplateIgnore]
+        [JsonProperty("properties")]
         public IDictionary<string, ModelProperty> Model { get; set; }
     }
 }

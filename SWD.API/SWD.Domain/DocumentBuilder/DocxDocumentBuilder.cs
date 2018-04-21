@@ -26,10 +26,10 @@ namespace SWD.Domain.DocumentBuilder
 
             builder.FillTextContent(textFields);
 
-            var list = new DocumentList<DocumentTable<SwaggerProperty>>
+            var list = new DocumentList<DocumentTable<ActionParameter>>
             {
                 ListKey = "Actions",
-                ListItems = model.Definitions.Select(action => new DocumentTable<SwaggerProperty>
+                ListItems = model.Definitions.Select(action => new DocumentTable<ActionParameter>
                 {
                     TableKey = "PropertyTable",
                     TableHeader = $"{action.Description} {action.Type} {action.Url}",
