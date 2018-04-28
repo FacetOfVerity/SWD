@@ -24,14 +24,28 @@ namespace SWD.Domain
                     {
                         var type = ((JProperty) methods).Name;
                         var description = method["summary"].Value<string>();
-                        var parameters = (JArray)method["parameters"];
-                        var response = method.SelectToken("responses", false).SelectToken("200", false).SelectToken("schema", false);
+                        var parameters = (JArray) method["parameters"];
+                        var response = method.SelectToken("responses", false).SelectToken("200", false)
+                            .SelectToken("schema", false);
+                        var props = parameters.Where(a => a["in"].Value<string>() != "header")
+                            .Select(ProcessParameter).ToList();
+                        if (!props.Any())
+                        {
+                            props.Add(new ActionParameter
+                            {
+                                Name = "Параметры отсутствуют",
+                                Description = "-",
+                                Type = "-",
+                                Required = false,
+                                Source = "-"
+                            });
+                        }
                         actions.Add(new ActionDefinition
                         {
                             Url = url,
                             Type = type,
                             Description = description,
-                            Properties = parameters.Select(ProcessParameter).ToList(),
+                            Properties = props,
                             Response = response != null ? ProcessProperty(response) : null
                         });
                     }
