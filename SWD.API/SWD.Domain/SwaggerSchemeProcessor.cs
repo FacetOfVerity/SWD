@@ -23,7 +23,7 @@ namespace SWD.Domain
                     foreach (var method in methods)
                     {
                         var type = ((JProperty) methods).Name;
-                        var description = method["summary"].Value<string>();
+                        var description = method["summary"]?.Value<string>();
                         var parameters = (JArray) method["parameters"];
                         var response = method.SelectToken("responses", false).SelectToken("200", false)
                             .SelectToken("schema", false);
